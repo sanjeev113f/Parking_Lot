@@ -13,13 +13,13 @@ class ParkingTest {
         parkingService.cleanSpots()
     }
     @Test
-    fun `should be able to check if vacant spot is available`() {
+    fun `should return true if vacant spot is available`() {
         val slotAvailability = parkingService.isSpotAvailable()
 
         assertEquals(true, slotAvailability)
     }
     @Test
-    fun `should not be able to find spot when no slot is vacant`() {
+    fun `should return false spot when no slot is vacant`() {
         parkingService.assignAllSpot()
         val slotAvailability = parkingService.isSpotAvailable()
 
