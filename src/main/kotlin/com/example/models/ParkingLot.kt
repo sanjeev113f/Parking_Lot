@@ -11,7 +11,7 @@ class ParkingLot{
     }
 
     fun unPark(ticket: Ticket): Receipt {
-        var entryTime = ticket.entryDateTimeHours
+        val entryTime = ticket.entryDateTimeHours
         return parkingService.generateReceipt(entryTime)
 
     }

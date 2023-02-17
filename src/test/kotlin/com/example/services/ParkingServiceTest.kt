@@ -42,5 +42,4 @@ class ParkingTest {
 
         assertEquals(2,nextAvailableSpot)
     }
-
 }

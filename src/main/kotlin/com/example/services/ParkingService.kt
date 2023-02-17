@@ -7,17 +7,17 @@ import kotlin.math.max
 class ParkingService {
     private val slotsCount = 100
     private val slots = IntArray(slotsCount)
-    private var ticketNumber=0
+    private var ticketNumber = 0
     private var hourRate:Int = 10
-    private var receiptNumber=0
+    private var receiptNumber = 0
 
     fun findSpot(): Int {
-        var i = 1
-        while (i < slotsCount) {
-            if (slots[i] == 0) return i
-            i++
+        var spotIndex = 1
+        while (spotIndex < slotsCount) {
+            if (slots[spotIndex] == 0) return spotIndex
+            spotIndex++
         }
-        return i
+        return spotIndex
     }
     fun isSpotAvailable(): Boolean {
         var i = 1
@@ -53,17 +53,17 @@ class ParkingService {
         val spotNumber = findSpot()
         val ticketNumber = getTicketNo()
         val now = Calendar.getInstance()
-        val hours:Int= now.get(Calendar.HOUR_OF_DAY)
+        val hours:Int = now.get(Calendar.HOUR_OF_DAY)
         assignSpot(spotNumber)
         return Ticket(ticketNumber, spotNumber, hours)
     }
     fun generateReceipt(entryTime: Int): Receipt {
         val receipt = Receipt()
-        receipt.receiptNumber= getReceiptsNo()
-        receipt.entryDateTimeHours= entryTime
+        receipt.receiptNumber = getReceiptsNo()
+        receipt.entryDateTimeHours = entryTime
         val now = Calendar.getInstance()
         val hours = now.get(Calendar.HOUR_OF_DAY)
-        receipt.exitDateTimeHours =hours
+        receipt.exitDateTimeHours = hours
         receipt.fees = hourRate* max(1,receipt.exitDateTimeHours!! -entryTime)
         return receipt
     }

@@ -6,7 +6,6 @@ fun main() {
     val parkingLot= ParkingLot()
     val ticket = parkingLot.park()
     val receipt = parkingLot.unPark(ticket)
-    println(ticket.entryDateTimeHours)
     receiptGenerated["receiptNumber"] = receipt.receiptNumber.toString()
     receiptGenerated["entryTime"] = receipt.entryDateTimeHours.toString()
     receiptGenerated["exitTime"] = receipt.exitDateTimeHours.toString()
