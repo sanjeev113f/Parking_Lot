@@ -51,9 +51,21 @@ class ParkingTest {
 
     @Test
     fun `should be able to generate ticket`() {
-        val ticketGenerated = parkingLot.park()
-        val expectedTicket = Ticket(1,1,ticketGenerated.getDateTimeHours)
+        val  ticketGenerated = parkingService.generateTicket()
 
-        assertEquals(expectedTicket, ticketGenerated)
+        assertEquals(ticketGenerated.getDateTimeHours, 16)
+        assertEquals(ticketGenerated.ticketNumber, 1)
+        assertEquals(ticketGenerated.spotNumber, 1)
+    }
+
+    @Test
+    fun `should be able to generate a receipt`() {
+        val ticket = Ticket(1, 1, 10)
+        val receipt = parkingLot.unPark(ticket)
+
+        assertEquals(receipt.receiptNumber , 1)
+        assertEquals(receipt.fees, 60)
+        assertEquals(receipt.entryDateTimeHours, 10)
+        assertEquals(receipt.exitDateTimeHours, 16)
     }
 }
