@@ -10,16 +10,19 @@ import org.junit.jupiter.api.Test
 class ParkingTest {
     private val parkingService = ParkingService()
     private val parkingLot = ParkingLot()
+
     @BeforeEach
     fun clear() {
         parkingService.cleanSpots()
     }
+
     @Test
     fun `should return true if vacant spot is available`() {
         val slotAvailability = parkingService.isSpotAvailable()
 
         assertEquals(true, slotAvailability)
     }
+
     @Test
     fun `should return false when no slot is vacant`() {
         parkingService.assignAllSpot()
@@ -27,6 +30,7 @@ class ParkingTest {
 
         assertEquals(false, slotAvailability)
     }
+
     @Test
     fun `should be able to assign a spot`() {
         parkingService.assignSpot(1)

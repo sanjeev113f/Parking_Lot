@@ -19,18 +19,19 @@ class ParkingService {
         }
         return spotIndex
     }
+
     fun isSpotAvailable(): Boolean {
-        var i = 1
-        while (i < slotsCount) {
-            if (slots[i] == 0) return true
-            i++
+        var spotIndex = 1
+        while (spotIndex < slotsCount) {
+            if (slots[spotIndex] == 0) return true
+            spotIndex++
         }
         return false
     }
 
     fun cleanSpots() {
-        for (i in 0 until slotsCount) {
-            slots[i] = 0
+        for (spot in 0 until slotsCount) {
+            slots[spot] = 0
         }
         ticketNumber=1
         receiptNumber=1
@@ -38,8 +39,8 @@ class ParkingService {
 
     fun assignAllSpot()
     {
-        for (i in 0 until slotsCount) {
-            slots[i] = 1
+        for (spot in 0 until slotsCount) {
+            slots[spot] = 1
         }
     }
 
@@ -60,6 +61,7 @@ class ParkingService {
         assignSpot(spotNumber)
         return Ticket(ticketNumber, spotNumber, hours)
     }
+
     fun generateReceipt(entryTime: Int): Receipt {
         val receipt = Receipt()
         receipt.receiptNumber = getReceiptsNo()
@@ -71,13 +73,13 @@ class ParkingService {
         receipt.fees = hourRate* (hours- entryTime)
         return receipt
     }
-    private fun getTicketNo(): Int {
 
+    private fun getTicketNo(): Int {
         return ticketNumber++
     }
+
     private fun getReceiptsNo(): Int {
         return receiptNumber++
-
     }
 
 }
