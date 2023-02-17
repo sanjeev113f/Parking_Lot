@@ -1,7 +1,6 @@
 package com.example.models
-import java.util.Date
 
-class Ticket(private var ticketNumber: Int?, private var spotNumber: Int?, var entryDateTime: Date) {
+class Ticket(private var ticketNumber: Int?, private var spotNumber: Int?, var entryDateTimeHours: Int) {
     fun getTicketNo(): Int? {
         return ticketNumber
     }
@@ -9,7 +8,7 @@ class Ticket(private var ticketNumber: Int?, private var spotNumber: Int?, var e
         return spotNumber
     }
 
-    fun entryDateNo(): Date {
-        return entryDateTime
+    fun entryDateNo(): Int {
+        return entryDateTimeHours
     }
 }
