@@ -2,14 +2,14 @@ package com.example.services
 import com.example.models.Ticket
 import com.example.models.Receipt
 import java.util.*
-import kotlin.math.max
 
 class ParkingService {
     private val slotsCount = 100
     private val slots = IntArray(slotsCount)
-    private var ticketNumber = 0
+    private var ticketNumber = 1
     private var hourRate:Int = 10
-    private var receiptNumber = 0
+    private var receiptNumber = 1
+    private val now = Calendar.getInstance()
 
     fun findSpot(): Int {
         var spotIndex = 1
@@ -32,6 +32,8 @@ class ParkingService {
         for (i in 0 until slotsCount) {
             slots[i] = 0
         }
+        ticketNumber=1
+        receiptNumber=1
     }
 
     fun assignAllSpot()
@@ -52,8 +54,9 @@ class ParkingService {
     fun generateTicket(): Ticket {
         val spotNumber = findSpot()
         val ticketNumber = getTicketNo()
-        val now = Calendar.getInstance()
-        val hours:Int = now.get(Calendar.HOUR_OF_DAY)
+        var hours:Int = now.get(Calendar.HOUR_OF_DAY)
+        val min = now.get(Calendar.MINUTE)
+        if(min>0) hours++
         assignSpot(spotNumber)
         return Ticket(ticketNumber, spotNumber, hours)
     }
@@ -61,19 +64,19 @@ class ParkingService {
         val receipt = Receipt()
         receipt.receiptNumber = getReceiptsNo()
         receipt.entryDateTimeHours = entryTime
-        val now = Calendar.getInstance()
-        val hours = now.get(Calendar.HOUR_OF_DAY)
+        var hours = now.get(Calendar.HOUR_OF_DAY)
+        val min = now.get(Calendar.MINUTE)
+        if(min>0) hours++
         receipt.exitDateTimeHours = hours
-        receipt.fees = hourRate* max(1,receipt.exitDateTimeHours!! -entryTime)
+        receipt.fees = hourRate* (hours- entryTime)
         return receipt
     }
     private fun getTicketNo(): Int {
-        ticketNumber++
-        return ticketNumber
+
+        return ticketNumber++
     }
     private fun getReceiptsNo(): Int {
-        receiptNumber++
-        return receiptNumber
+        return receiptNumber++
 
     }
 

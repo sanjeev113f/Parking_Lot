@@ -5,8 +5,6 @@ class ParkingLot{
     private val parkingService = ParkingService()
 
     fun park() :Ticket{
-        val vacantSpot = parkingService.findSpot()
-        parkingService.assignSpot(vacantSpot)
         return parkingService.generateTicket()
     }
 
