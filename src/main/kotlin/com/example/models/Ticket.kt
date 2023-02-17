@@ -1,6 +1,6 @@
 package com.example.models
 
-data class Ticket(private var ticketNumber: Int, private var spotNumber: Int, var entryDateTimeHours: Int) {
+data class Ticket(private var ticketNumber: Int, private var spotNumber: Int, var getDateTimeHours: Int) {
     fun getTicketNo(): Int {
         return ticketNumber
     }
@@ -9,6 +9,6 @@ data class Ticket(private var ticketNumber: Int, private var spotNumber: Int, va
     }
 
     fun entryDateNo(): Int {
-        return entryDateTimeHours
+        return getDateTimeHours
     }
 }
