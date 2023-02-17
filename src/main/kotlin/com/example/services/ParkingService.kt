@@ -7,8 +7,13 @@ class ParkingService {
     private val slotCount = parkingLot.getSlotsCount()
     private val slots = parkingLot.getSlots()
 
-    fun findSpot() {
-        return
+    fun findSpot(): Int {
+        var i = 1
+        while (i < slotCount) {
+            if (slots[i] == 0) return i
+            i++
+        }
+        return i
     }
     fun isSpotAvailable(): Boolean {
         var i = 1
@@ -33,11 +38,11 @@ class ParkingService {
     }
 
     fun assignSpot(spotNumber: Int) {
-
+        slots[spotNumber ] = 1
     }
 
     fun unAssignSpot(spotNumber: Int) {
-
+        slots[spotNumber ] = 0
     }
 
 
