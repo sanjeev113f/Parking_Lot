@@ -25,5 +25,22 @@ class ParkingTest {
 
         assertEquals(false, slotAvailability)
     }
+    @Test
+    fun `should be able to assign a spot`() {
+        parkingService.assignSpot(1)
+        val nextAvailableSpot = parkingService.findSpot()
+
+        assertEquals(2,nextAvailableSpot)
+    }
+
+    @Test
+    fun `should be able to unAssign spot`() {
+        parkingService.assignSpot(1)
+        parkingService.assignSpot(2)
+        parkingService.unAssignSpot(2)
+        val nextAvailableSpot = parkingService.findSpot()
+
+        assertEquals(2,nextAvailableSpot)
+    }
 
 }
