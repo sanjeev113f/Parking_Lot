@@ -2,8 +2,8 @@ package com.example.models
 import java.util.*
 
 class Receipt {
-    private var receiptNumber = 1
-    private var entryDateTime: Date? = null
-    private var exitDateTime: Date? = null
-    private var fees: Int = 0
+    var receiptNumber = 1
+    var entryDateTime: Date? = null
+    var exitDateTime: Date? = null
+    var fees: Int = 0
 }
