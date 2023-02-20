@@ -34,13 +34,10 @@ class ParkingLot{
 
     fun generateTicket(): Ticket? {
         if(isSpotNotAvailable()) return null
-
         val spotNumber = findSpot()
         val ticket = Ticket()
         val ticketNumber = Ticket().getTicketNo()
-        var hours:Int = now.get(Calendar.HOUR_OF_DAY)
-        val min = now.get(Calendar.MINUTE)
-        if(min>0) hours++
+        val hours:Int = getHours()
         assignSpot(spotNumber)
         ticket.setTicketNumber(ticketNumber)
         ticket.setSpotNumber(spotNumber)
@@ -52,9 +49,7 @@ class ParkingLot{
         val receipt = Receipt()
         receipt.setReceiptsNo(receipt.getReceiptsNo())
         receipt.setEntryDateTimeHours(entryTime)
-        var hours = now.get(Calendar.HOUR_OF_DAY)
-        val min = now.get(Calendar.MINUTE)
-        if(min>0) hours++
+        val hours = getHours()
         receipt.setExitDateTimeHours(hours)
         receipt.setFees(hourRate* (hours- entryTime))
         return receipt
@@ -74,6 +69,14 @@ class ParkingLot{
 
     fun unAssignSpot(spotNumber: Int) {
         slots[spotNumber ] = 0
+    }
+
+    fun getHours(): Int
+    {
+        var hour = now.get(Calendar.HOUR_OF_DAY)
+        val min = now.get(Calendar.MINUTE)
+        if(min>0) hour++
+        return hour
     }
 
 }

@@ -50,7 +50,7 @@ class ParkingLotTest {
         val ticketGenerated = parkingLot.generateTicket()
 
         if (ticketGenerated != null) {
-            assertEquals(ticketGenerated.getDateTimeHours(), 7)
+            assertEquals(ticketGenerated.getDateTimeHours(), 8)
             assertEquals(ticketGenerated.getTicketNo(), 1)
             assertEquals(ticketGenerated.getSpotNumber(), 1)
         }
@@ -64,8 +64,15 @@ class ParkingLotTest {
             val receipt = parkingLot.generateReceipt(ticket.getDateTimeHours())
             assertEquals(receipt.getReceiptsNo() , 1)
             assertEquals(receipt.getFees(), 0)
-            assertEquals(receipt.getEntryDateTimeHours(), 7)
-            assertEquals(receipt.getExitDateTimeHours(), 7)
+            assertEquals(receipt.getEntryDateTimeHours(), 8)
+            assertEquals(receipt.getExitDateTimeHours(), 8)
         }
+    }
+
+    @Test
+    fun `should give hours of day till now`() {
+        val hours = parkingLot.getHours()
+
+        assertEquals(hours, 8)
     }
 }
