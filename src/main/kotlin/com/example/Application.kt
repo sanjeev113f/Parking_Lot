@@ -1,17 +1,24 @@
 package com.example
 import com.example.models.ParkingLot
+import com.example.models.Vehicle
 
 fun main() {
     val receiptGenerated = mutableMapOf<String,String>()
     val parkingLot= ParkingLot()
-    val ticket = parkingLot.park()
-    val receipt = parkingLot.unPark(ticket)
-    receiptGenerated["receiptNumber"] = receipt.receiptNumber.toString()
-    receiptGenerated["entryTime"] = receipt.entryDateTimeHours.toString()
-    receiptGenerated["exitTime"] = receipt.exitDateTimeHours.toString()
-    receiptGenerated["fees"] = receipt.fees.toString()
+    val vehicle = Vehicle()
+    val ticket = vehicle.park()
+    if(ticket == null)
+        println("parking slot is full")
+    else {
 
-    println(receiptGenerated)
+        val receipt = vehicle.unPark(ticket)
+        receiptGenerated["receiptNumber"] = receipt.getReceiptsNo().toString()
+        receiptGenerated["entryTime"] = receipt.getEntryDateTimeHours().toString()
+        receiptGenerated["exitTime"] = receipt.getExitDateTimeHours().toString()
+        receiptGenerated["fees"] = receipt.getFees().toString()
+
+        println(receiptGenerated)
+    }
 
 }
 

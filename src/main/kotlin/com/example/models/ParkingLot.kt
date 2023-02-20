@@ -1,16 +1,79 @@
 package com.example.models
-import com.example.services.ParkingService
+import java.util.*
 
 class ParkingLot{
-    private val parkingService = ParkingService()
+    private val slotsCount = 100
+    private val slots = IntArray(slotsCount)
+    private var hourRate:Int = 10
+    private val now = Calendar.getInstance()
 
-    fun park() :Ticket{
-        return parkingService.generateTicket()
+    fun findSpot(): Int {
+        var startIndex = 1
+        while (startIndex < slotsCount) {
+            if (slots[startIndex] == 0) return startIndex
+            startIndex++
+        }
+        return startIndex
     }
 
-    fun unPark(ticket: Ticket): Receipt {
-        val entryTime = ticket.getDateTimeHours
-        return parkingService.generateReceipt(entryTime)
-
+    fun isSpotNotAvailable(): Boolean {
+        var startIndex = 1
+        while (startIndex < slotsCount) {
+            if (slots[startIndex] == 0) return false
+            startIndex++
+        }
+        return true
     }
+
+    fun assignAllSpot()
+    {
+        for (spot in 0 until slotsCount) {
+            slots[spot] = 1
+        }
+    }
+
+    fun generateTicket(): Ticket? {
+        if(isSpotNotAvailable()) return null
+
+        val spotNumber = findSpot()
+        val ticket = Ticket()
+        val ticketNumber = Ticket().getTicketNo()
+        var hours:Int = now.get(Calendar.HOUR_OF_DAY)
+        val min = now.get(Calendar.MINUTE)
+        if(min>0) hours++
+        assignSpot(spotNumber)
+        ticket.setTicketNumber(ticketNumber)
+        ticket.setSpotNumber(spotNumber)
+        ticket.setDateTimeHours(hours)
+        return ticket
+    }
+
+    fun generateReceipt(entryTime: Int): Receipt {
+        val receipt = Receipt()
+        receipt.setReceiptsNo(receipt.getReceiptsNo())
+        receipt.setEntryDateTimeHours(entryTime)
+        var hours = now.get(Calendar.HOUR_OF_DAY)
+        val min = now.get(Calendar.MINUTE)
+        if(min>0) hours++
+        receipt.setExitDateTimeHours(hours)
+        receipt.setFees(hourRate* (hours- entryTime))
+        return receipt
+    }
+
+    fun cleanSpots() {
+        for (spot in 0 until slotsCount) {
+            slots[spot] = 0
+        }
+        Ticket().setTicketNumber(1)
+        Receipt().setReceiptsNo(1)
+    }
+
+    fun assignSpot(spotNumber: Int) {
+        slots[spotNumber]=1
+    }
+
+    fun unAssignSpot(spotNumber: Int) {
+        slots[spotNumber ] = 0
+    }
+
 }
